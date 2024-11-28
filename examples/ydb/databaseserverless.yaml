@@ -1,0 +1,10 @@
+apiVersion: ydb.yandex-cloud.jet.crossplane.io/v1alpha1
+kind: DatabaseServerless
+metadata:
+  name: database1
+spec:
+  forProvider:
+    name: test-ydb-serverless
+    locationId: ru-central1
+  providerConfigRef:
+    name: default

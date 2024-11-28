@@ -1,0 +1,71 @@
+apiVersion: datatransfer.yandex-cloud.jet.crossplane.io/v1alpha1
+kind: Endpoint
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datatransfer/v1alpha1/transfer
+  labels:
+    testing.upbound.io/example-name: pg_source
+  name: pg-source
+spec:
+  forProvider:
+    name: pg-test-source
+    settings:
+    - postgresSource:
+      - connection:
+        - onPremise:
+          - hosts:
+            - example.org
+            port: 5432
+        database: "prod-db"
+        user: "pg-admin"
+        password:
+        - rawSecretRef:
+            name: postgresql-local
+            key: password
+            namespace: default
+        slotGigabyteLagLimit: 100
+  providerConfigRef:
+    name: default
+
+---
+
+apiVersion: datatransfer.yandex-cloud.jet.crossplane.io/v1alpha1
+kind: Endpoint
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datatransfer/v1alpha1/transfer
+  labels:
+    testing.upbound.io/example-name: pg_target
+  name: pg-target
+spec:
+  forProvider:
+    name: pg-test-target2
+    settings:
+    - postgresTarget:
+      - connection:
+        - mdbClusterIdRef:
+            name: example-pg
+        databaseRef:
+          name: pg-database1
+        password:
+        - rawSecretRef:
+            name: postgresql
+            key: password
+            namespace: default
+        userRef:
+          name: pg-user1
+  providerConfigRef:
+    name: default
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgresql-local
+  namespace: default
+type: Opaque
+data:
+  # 12345678
+  password: MTIzNDU2Nzg=
+  

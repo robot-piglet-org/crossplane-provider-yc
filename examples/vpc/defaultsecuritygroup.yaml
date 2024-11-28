@@ -1,0 +1,33 @@
+apiVersion: vpc.yandex-cloud.jet.crossplane.io/v1alpha1
+kind: DefaultSecurityGroup
+metadata:
+  name: example-sg
+spec:
+  forProvider:
+    networkIdRef:
+      name: example-net
+    ingress:
+      - protocol: TCP
+        description: "rule1 description"
+        v4CidrBlocks:
+          - "10.0.1.0/24"
+          - "10.0.2.0/24"
+        port: 8080
+      - protocol: ANY
+        description: "required for k8s master-node interconnection"
+        predefinedTarget: "self_security_group"
+        fromPort: 0
+        toPort: 65535
+      - protocol: ANY
+        description: "required for ALB"
+        predefinedTarget: "loadbalancer_healthchecks"
+        port: 30080
+    egress:
+      - protocol: ANY
+        description: "allow all outgoing traffic"
+        v4CidrBlocks:
+          - "0.0.0.0/0"
+        fromPort: 0
+        toPort: 65535
+  providerConfigRef:
+    name: default

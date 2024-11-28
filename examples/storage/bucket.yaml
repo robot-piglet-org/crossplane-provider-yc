@@ -1,0 +1,18 @@
+apiVersion: storage.yandex-cloud.jet.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  name: example-bucket
+  labels:
+    testing.upbound.io/example-name: storage
+spec:
+  forProvider:
+    accessKeyRef:
+      name: example-sa-static-key
+    secretKeySecretRef:
+      name: sa-key-conn
+      namespace: upbound-system
+      key: attribute.secret_key
+    bucket: "example-crossplane-test-bucket"
+    # acl: "public-read"
+  providerConfigRef:
+    name: default
