@@ -9,7 +9,7 @@ managed resources for [Yandex Cloud](https://cloud.yandex.com/).
 ### Install crossplane-provider-yc
 
 Install crossplane:
-
+jjdjd
 ```
 kubectl create namespace crossplane-system
 
