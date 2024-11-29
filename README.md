@@ -7,7 +7,7 @@ managed resources for [Yandex Cloud](https://cloud.yandex.com/).
 ## Getting Started
 
 ### Install crossplane-provider-yc
-
+Hello world!
 Install crossplane:
 
 ```
