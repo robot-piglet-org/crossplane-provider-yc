@@ -110,6 +110,8 @@ spec:
   deletionPolicy: Orphan
 ```
 
+
+djksjdkss
 ```shell
 ❯ k explain Folder.spec.deletionPolicy
 KIND:     Folder
